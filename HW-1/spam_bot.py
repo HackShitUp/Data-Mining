@@ -10,9 +10,6 @@ import math
 import operator
 
 
-# Initialized dictionary for the training and test data sets
-trainingDictionary = {};
-testDictionary = {};
 
 '''
 MARK: - Class Vars
@@ -21,6 +18,12 @@ MARK: - Class Vars
 pathToTrainingSet = 'data/spam_train.csv';
 # Path to test set
 pathToTestSet = 'data/spam_test.csv';
+
+'''
+Initialized dictionaries used to store the data set's (1) ID as its key and (2) its features and label as its value as a Float array
+'''
+trainingDictionary = {};
+testDictionary = {};
 
 '''
 Count the total number of columns/attributes in a given CSV file.
@@ -33,91 +36,39 @@ def countTotalColumns(pathToFile):
         for row in csv_reader:
             i += 1;
     return i
-   
-   
-   
-'''
-MARK: - Training Set
-Here, we store the training data in a dictionary to optimize for efficiency in comparison
-'''
-with open(pathToTrainingSet) as csv_file:
+
+# Prepare to loop through each of the CSV files and extract its data
+paths = [pathToTrainingSet, pathToTestSet]
+
+# Loop through the different CSV files
+for path in paths:
+   with open(path) as csv_file:
     # Initialize the csv
     csv_reader = csv.reader(csv_file);
+    
     # Iterator (for columns)
     i = 0;
     
     # Get the total number of columns for this file
-    columnCount = countTotalColumns(pathToTrainingSet)
+    columnCount = countTotalColumns(path)
     
     # Loop through each row
     for row in csv_reader:
+    
         # First row only identifies the attributes (i.e., f1 ... fn), so we just log them or increment i
-        if i == 0:
-            # Log the attributes
-#            print(f'\n\nAttributes:\n{"   ".join(row)}\n\n')
-            # Update the iterator
-            i += 1
-        else:
-        # All the other rows store the actual values so we store them in the dictionary
+        if i != 0:
+            # All the other rows store the actual values so we store them in the dictionary
             # Get the ID
             id = row[0]
             # Get the values from 1 - n (values excluding the ID)
             values = list(map(float, row[1:columnCount]))
             # Update the dictionary to reflect the values for each row in this data set
-            trainingDictionary[id] = values
-            # Update the iterator
-            i += 1
+            (trainingDictionary if path == pathToTrainingSet else testDictionary)[id] = values
+        
+        # Update the iterator
+        i += 1
             
-    # Log the total number of rows processed
-#    print(f'Training Dictionary: {trainingDictionary}')
-    
-    
-    
-'''
-MARK: - Test Set
-Here, we store the teset data in a dictionary to optimize for efficiency in comparison
-'''
-with open(pathToTestSet) as csv_file:
-    # Initialize the csv
-    csv_reader = csv.reader(csv_file);
-    # Iterator (for columns)
-    i = 0;
 
-    # Get the total number of columns for this file
-    columnCount = countTotalColumns(pathToTestSet)
-
-    # Loop through each row
-    for row in csv_reader:
-        # First row only identifies the attributes (i.e., f1 ... fn), so we just log them or increment i
-        if i == 0:
-            # Log the attributes
-#            print(f'\n\nAttributes:\n{"   ".join(row)}\n\n')
-            # Update the iterator
-            i += 1
-        else:
-        # All the other rows store the actual values so we store them in the dictionary
-            # Get the ID
-            id = row[0]
-            # Get the values from 1 - n (values excluding the ID)
-            values = list(map(float, row[1:columnCount]))
-            # Update the dictionary to reflect the values for each row in this data set
-            testDictionary[id] = values
-            # Update the iterator
-            i += 1
-
-    # Log the total number of rows processed
-#    print(f'testDictionary Dictionary: {testDictionary}')
-    
-    
-
-
-# Initialized dictionary of distance values per each row from A and its 'Label' value, calculated via each row from B (e.g., {0.01: 1, 0.02: 0, 0.8 : 1}
-# LHS = KEY (AKA DISTANCE)
-# RHS = VALUE (AKA LABEL)
-distanceDictionary = {}
-
-# Store the calculated distance
-distance = 0.0;
 
 '''
 Abstract: This method calculates the distance between each data set and stores them in a dictionary. The LHS stores the row's label, and the RHS stores the comparable distance between each row from the test set to the training set. In other words:
@@ -137,6 +88,14 @@ Given B (test set) and A (training set)
 4. Then, we sort the values from least to greatest to get the "K" nearest neighbors.
 5. Finally, we grab the classification labels from the "K" nearest neighbors to report its test-accuracy.
 '''
+# Initialized dictionary of distance values per each row from A and its 'Label' value, calculated via each row from B (e.g., {0.01: 1, 0.02: 0, 0.8 : 1}
+# LHS = KEY (AKA DISTANCE)
+# RHS = VALUE (AKA LABEL)
+distanceDictionary = {}
+
+# Store the calculated distance
+distance = 0.0;
+
 # Loop through each test set and get their key/values. Here, 't' represents the integer/iterator where 'tKey' and 'tValue' represents its key/value resepctively. In otherwords, 'tKey' = ID and 'tValue' = Features (aka an array excluding the last one because that's the label)
 for t, (tKey, tValues) in enumerate(testDictionary.items()):
 
@@ -155,39 +114,35 @@ for t, (tKey, tValues) in enumerate(testDictionary.items()):
 
         # Store the distance in the dictionary along with its classification
         distanceDictionary[distance] = trValues[-1]
+        
+        # Log this for visual
+        print(f'Distance: {distance}')
+        
         # Reset the distance value to recalculate the distance
         distance = 0
 
+'''
+MARK: - KNN
+'''
 
+# Question (1a) — Get all the values for k in our KNN implementation
+kValues = [1, 5, 11, 21, 41, 61, 81, 101, 201, 401]
 
-
-# MARK: - KNN
-k = 11
 # Sort the dictionaries by their keys (aka distance) from least to greatest
 sortedDictionary = OrderedDict(sorted(distanceDictionary.items()))
 
 # Initialized array of Float values representing the classification per each distance calculated from the training set
 classifications = []
 
-# Get knn
-for n, (knn, classification) in enumerate(sortedDictionary.items()):
-    if n == k:
-        break
-    else:
-        # Append the classification to the list
+# Loop through the kValues and append the accuracy for each 'K'
+for k in kValues:
+    # Loop through the sorted dictionary values (least to greatest) and append their accuracy at each value of 'k'
+    for n, (knn, classification) in enumerate(sortedDictionary.items()):
+        # Append the classification
         classifications.append(classification)
         
-
-# Get the accuracy of the input
-totalCount = len(classifications)
-occurence = classifications.count(1)
-
-# Log the prediction and total count
-'''
-When k =...
-1 = 0.0
-5 = 0.80
-11 = 0.8181818181818182
-'''
-print(f'Prediction: {occurence/totalCount}')
-    
+        if n == k:
+            # Get the accuracy of the input
+            accuracy = classifications.count(1)/len(classifications)
+            # Log the accuracy
+            print(f'Accuracy at k {k}: {accuracy}')
