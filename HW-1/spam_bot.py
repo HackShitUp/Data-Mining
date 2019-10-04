@@ -2,6 +2,7 @@
 #© Nanogram, Inc.
 #10/2/19
 
+from collections import OrderedDict
 import pandas as pd
 import numpy as np
 import csv
@@ -61,7 +62,7 @@ with open(pathToTrainingSet) as csv_file:
             # Get the ID
             id = row[0]
             # Get the values from 1 - n (values excluding the ID)
-            values = row[1:columnCount]
+            values = list(map(float, row[1:columnCount]))
             # Update the dictionary to reflect the values for each row in this data set
             trainingDictionary[id] = values
             # Update the iterator
@@ -98,7 +99,7 @@ with open(pathToTestSet) as csv_file:
             # Get the ID
             id = row[0]
             # Get the values from 1 - n (values excluding the ID)
-            values = row[1:columnCount]
+            values = list(map(float, row[1:columnCount]))
             # Update the dictionary to reflect the values for each row in this data set
             testDictionary[id] = values
             # Update the iterator
@@ -108,7 +109,16 @@ with open(pathToTestSet) as csv_file:
 #    print(f'testDictionary Dictionary: {testDictionary}')
     
     
-    
+
+
+# Initialized dictionary of distance values per each row from A and its 'Label' value, calculated via each row from B (e.g., {0.01: 1, 0.02: 0, 0.8 : 1}
+# LHS = KEY (AKA DISTANCE)
+# RHS = VALUE (AKA LABEL)
+distanceDictionary = {}
+
+# Store the calculated distance
+distance = 0.0;
+
 '''
 Abstract: This method calculates the distance between each data set and stores them in a dictionary. The LHS stores the row's label, and the RHS stores the comparable distance between each row from the test set to the training set. In other words:
 Given B (test set) and A (training set)
@@ -127,38 +137,57 @@ Given B (test set) and A (training set)
 4. Then, we sort the values from least to greatest to get the "K" nearest neighbors.
 5. Finally, we grab the classification labels from the "K" nearest neighbors to report its test-accuracy.
 '''
+# Loop through each test set and get their key/values. Here, 't' represents the integer/iterator where 'tKey' and 'tValue' represents its key/value resepctively. In otherwords, 'tKey' = ID and 'tValue' = Features (aka an array excluding the last one because that's the label)
+for t, (tKey, tValues) in enumerate(testDictionary.items()):
 
-# Initialized dictionary of distance values per each row from A and its 'Label' value, calculated via each row from B (e.g., {0.01: 1, 0.02: 0, 0.8 : 1}
-distanceDictionary = {}
+    # Loop through each training set's rows
+    for tr, (trKey, trValues) in enumerate(trainingDictionary.items()):
+        
+        # Loop through each training/test set's columns and calculate the distance per each training set's row
+        for i, value in enumerate(trValues):
+            '''
+            MARK: - Euclidean Distance
+            let a = (x1 - y1)^2 + (x2 - y2)^2 + ... + (xn - yn)^2
+            let dxy = sqrt(a)
+            '''
+            distance += (tValues[i] - value) * (tValues[i] - value)
+            distance = math.sqrt(distance)
+
+        # Store the distance in the dictionary along with its classification
+        distanceDictionary[distance] = trValues[-1]
+        # Reset the distance value to recalculate the distance
+        distance = 0
 
 
-#valueOfTrainingSetAtC = 0;
-#summationValue = 0;
-#distance = 0;
-#
-## Loop through each test set and get their key/values. Here, 't' represents the integer/iterator where 'tKey' and 'tValue' represents its key/value resepctively. In otherwords, 'tKey' = ID and 'tValue' = Features (excluding the last one because that's the label)
-#for t, (tKey, tValue) in enumerate(testDictionary.items()):
-#
-#    # Loop through each value (aka its column/feature)
-#    for c in tValue:
-#
-#        '''
-#        MARK: - Euclidean Distance
-#        let a = (x1 - y1)^2 + (x2 - y2)^2 + ... + (xn - yn)^2
-#        let dxy = sqrt(a)
-#        '''
-#        valueOfTrainingSetAtC = list(trainingDictionary)[t][c]
-#
-#    # Get the square root of the summation
-#    distance = math.sqrt(summationValue)
-#
-#    print(f'Distance: {distance}')
-#
-#    # Reset the distance
-#    distance = 0
-    
+
+
+# MARK: - KNN
+k = 11
+# Sort the dictionaries by their keys (aka distance) from least to greatest
+sortedDictionary = OrderedDict(sorted(distanceDictionary.items()))
+
+# Initialized array of Float values representing the classification per each distance calculated from the training set
+classifications = []
+
+# Get knn
+for n, (knn, classification) in enumerate(sortedDictionary.items()):
+    if n == k:
+        break
+    else:
+        # Append the classification to the list
+        classifications.append(classification)
         
 
+# Get the accuracy of the input
+totalCount = len(classifications)
+occurence = classifications.count(1)
 
-
-
+# Log the prediction and total count
+'''
+When k =...
+1 = 0.0
+5 = 0.80
+11 = 0.8181818181818182
+'''
+print(f'Prediction: {occurence/totalCount}')
+    
