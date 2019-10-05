@@ -9,6 +9,24 @@ python spam_bot.py
 ```
 The program will log the answers to the questions. Based on the machine's CPU, RAM, and processor the runtime may vary. Benchmark generally ranges between 60 to 180 seconds.
 
+Abstract: This method calculates the distance between each data set and stores them in a dictionary. The LHS stores the row's label, and the RHS stores the comparable distance between each row from the test set to the training set. In other words: Given B (test set) and A (training set)...
+```
+1. Iterate through rows B.
+2. Per each row of B, get columns from each row of A and execute the euclidean distance:
+               ___________________________________________________
+    d(x,y) = \/ SIGMA (B1 — A1)^2 + (B2 — A2)^2 + ... (Bn - An)^2
+
+3. Using a dictionary, we store the distance value of B (Row N) and A (Row N) and the classification label of A like so:
+[
+    [0.01 : 1]  --> Row 1 from B
+    [0.01 : 0]  --> Row 2 from B
+    [0.01 : 1]  --> Row 3 from B
+    [0.01 : 0]  --> Row N from B
+]
+4. Then, we sort the values from least to greatest to get the "K" nearest neighbors.
+5. Finally, we grab the classification labels from the "K" nearest neighbors to report its test-accuracy.
+```
+
 
 ### 2. Table 1 below contains a small training set. Each line includes an individual’s education, occupation choice, years of experience, and an indication of salary. Your task is to create a complete decision tree including the number of low’s & high’s , entropy at each step and the information gain for each feature examined at each node in the tree.
 
