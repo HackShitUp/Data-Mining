@@ -60,7 +60,10 @@ for path in paths:
             # Get the ID
             id = row[0]
             # Get the values from 1 - n (values excluding the ID)
-            values = list(map(float, row[1:columnCount]))
+#            values = list(map(float, row[1:columnCount]))
+            
+            
+
             # Update the dictionary to reflect the values for each row in this data set
             (trainingDictionary if path == pathToTrainingSet else testDictionary)[id] = values
         
@@ -115,7 +118,8 @@ for t, (tKey, tValues) in enumerate(testDictionary.items()):
         # Store the distance in the dictionary along with its classification
         distanceDictionary[distance] = trValues[-1]
         # Log this for visual
-        print(f'Distance: {distance}')
+#        print(f'Distance: {distance}')
+
         # Reset the distance value to recalculate the distance
         distance = 0
 
@@ -131,14 +135,14 @@ sortedDictionary = OrderedDict(sorted(distanceDictionary.items()))
 # Initialized array of Float values representing the classification per each distance calculated from the training set
 classifications = []
 
-print(f'1A) KNN Values:')
+print(f'1B) KNN when features are normalized:')
 
 # Get knn
 for n, (knn, classification) in enumerate(sortedDictionary.items()):
     # Append the classification to the list
     classifications.append(classification)
     
-    # If we found the kth nearest neighbor, log its accuracy                   }
+    # If we found the kth nearest neighbor, log its accuracy
     if (n + 1) in kValues:
         # Get the accuracy of the input
         totalCount = len(classifications)
