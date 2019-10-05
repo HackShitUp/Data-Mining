@@ -3,6 +3,12 @@
 # 10/2/19
 
 
+### 1. Execute ```spam_bot.py``` using python:
+```
+python spam_bot.py
+```
+The program will log the answers to the questions. Based on the machine's CPU, RAM, and processor the runtime may vary. Benchmark generally ranges between 60 to 180 seconds.
+
 
 ### 2. Table 1 below contains a small training set. Each line includes an individual’s education, occupation choice, years of experience, and an indication of salary. Your task is to create a complete decision tree including the number of low’s & high’s , entropy at each step and the information gain for each feature examined at each node in the tree.
 
