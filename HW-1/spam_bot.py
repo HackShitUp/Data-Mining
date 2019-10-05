@@ -147,3 +147,10 @@ for n, (knn, classification) in enumerate(sortedDictionary.items()):
         accuracy = occurence/totalCount
         # Log the accuracy for K
         print(f'K = {n + 1}: {accuracy}')
+        
+        
+'''
+MARK: - KNN
+'''
+#df = pd.DataFrame({'a': [1,2,3], 'b': [2,2,2], 'c': [5,6,7], 'd':[8,8,8] })
+df = pd.DataFrame(sortedDictionary)
