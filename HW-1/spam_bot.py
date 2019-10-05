@@ -144,6 +144,7 @@ classifications = []
 #            occurence = classifications.count(1)
 #            print(f'Prediction: {occurence/totalCount}')
 
+k = 5;
 
 # Get knn
 for n, (knn, classification) in enumerate(sortedDictionary.items()):
