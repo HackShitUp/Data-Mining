@@ -3,7 +3,7 @@
 # 10/2/19
 
 
-### 1. Execute ```spam_bot.py``` using python:
+### 1. Execute ```spam_bot.py``` using python. To manipulate the values of _k_ (which is initialized to [1, 5, 11, 21, 41, 61, 81, 101, 201, 401]). To update this value, search for the variable, *kValues*.
 ```
 python spam_bot.py
 ```

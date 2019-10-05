@@ -115,7 +115,8 @@ for t, (tKey, tValues) in enumerate(testDictionary.items()):
         # Store the distance in the dictionary along with its classification
         distanceDictionary[distance] = trValues[-1]
         # Log this for visual
-        print(f'Distance: {distance}')
+#        print(f'Distance: {distance}')
+
         # Reset the distance value to recalculate the distance
         distance = 0
 
@@ -131,32 +132,18 @@ sortedDictionary = OrderedDict(sorted(distanceDictionary.items()))
 # Initialized array of Float values representing the classification per each distance calculated from the training set
 classifications = []
 
-#for k in kValues:
-#    # Loop through the sorted dictionary's key (distance) and its value (label)
-#    for n, (dxy, classification) in enumerate(sortedDictionary.items()):
-#        # Append the classification to the list
-#        classifications.append(classification)
-#
-#        # If we found k...
-#        if (n + 1) == k:
-#            # Get the accuracy of the input
-#            totalCount = len(classifications)
-#            occurence = classifications.count(1)
-#            print(f'Prediction: {occurence/totalCount}')
-
-k = 5;
+print(f'1A) KNN Values:')
 
 # Get knn
 for n, (knn, classification) in enumerate(sortedDictionary.items()):
     # Append the classification to the list
     classifications.append(classification)
     
-    if (n + 1) == k:
-        break
-        
-
-# Get the accuracy of the input
-totalCount = len(classifications)
-occurence = classifications.count(1)
-
-print(f'Accuracy: {occurence/totalCount}')
+    # If we found the kth nearest neighbor, log its accuracy                   }
+    if (n + 1) in kValues:
+        # Get the accuracy of the input
+        totalCount = len(classifications)
+        occurence = classifications.count(1)
+        accuracy = occurence/totalCount
+        # Log the accuracy for K
+        print(f'K = {n + 1}: {accuracy}')
