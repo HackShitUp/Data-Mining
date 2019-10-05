@@ -54,7 +54,6 @@ for path in paths:
     
     # Loop through each row
     for row in csv_reader:
-    
         # First row only identifies the attributes (i.e., f1 ... fn), so we just log them or increment i
         if i != 0:
             # All the other rows store the actual values so we store them in the dictionary
@@ -80,10 +79,10 @@ Given B (test set) and A (training set)
 
 3. Using a dictionary, we store the distance value of B (Row N) and A (Row N) and the classification label of A like so:
 [
-    [1 : 0.01]  --> Row 1 from B
-    [1 : 0.01]  --> Row 2 from B
-    [0 : 0.01]  --> Row 3 from B
-    [0 : 0.01]  --> Row N from B
+    [0.01 : 1]  --> Row 1 from B
+    [0.01 : 0]  --> Row 2 from B
+    [0.01 : 1]  --> Row 3 from B
+    [0.01 : 0]  --> Row N from B
 ]
 4. Then, we sort the values from least to greatest to get the "K" nearest neighbors.
 5. Finally, we grab the classification labels from the "K" nearest neighbors to report its test-accuracy.
@@ -110,9 +109,7 @@ for t, (tKey, tValues) in enumerate(testDictionary.items()):
         for i, value in enumerate(trValues):
             # Get the summation
             distance += (tValues[i] - value) * (tValues[i] - value)
-
     
-        
         # Get the square root after getting the summation
         distance = math.sqrt(distance)
         # Store the distance in the dictionary along with its classification
@@ -126,24 +123,39 @@ for t, (tKey, tValues) in enumerate(testDictionary.items()):
 MARK: - KNN
 '''
 
-# Question (1a) — Get all the values for k in our KNN implementation
+## Question (1a) — Get all the values for k in our KNN implementation
 kValues = [1, 5, 11, 21, 41, 61, 81, 101, 201, 401]
-
 # Sort the dictionaries by their keys (aka distance) from least to greatest
 sortedDictionary = OrderedDict(sorted(distanceDictionary.items()))
 
 # Initialized array of Float values representing the classification per each distance calculated from the training set
 classifications = []
 
-# Loop through the kValues and append the accuracy for each 'K'
-for k in kValues:
-    # Loop through the sorted dictionary values (least to greatest) and append their accuracy at each value of 'k'
-    for n, (distance, classification) in enumerate(sortedDictionary.items()):
-        # Append the classification
-        classifications.append(classification)
+#for k in kValues:
+#    # Loop through the sorted dictionary's key (distance) and its value (label)
+#    for n, (dxy, classification) in enumerate(sortedDictionary.items()):
+#        # Append the classification to the list
+#        classifications.append(classification)
+#
+#        # If we found k...
+#        if (n + 1) == k:
+#            # Get the accuracy of the input
+#            totalCount = len(classifications)
+#            occurence = classifications.count(1)
+#            print(f'Prediction: {occurence/totalCount}')
+
+
+# Get knn
+for n, (knn, classification) in enumerate(sortedDictionary.items()):
+    # Append the classification to the list
+    classifications.append(classification)
+    
+    if (n + 1) == k:
+        break
         
-        if n == k:
-            # Get the accuracy of the input
-            accuracy = classifications.count(1)/len(classifications)
-            # Log the accuracy
-            print(f'Accuracy at k {k}: {accuracy}')
+
+# Get the accuracy of the input
+totalCount = len(classifications)
+occurence = classifications.count(1)
+
+print(f'Accuracy: {occurence/totalCount}')
