@@ -101,23 +101,24 @@ for t, (tKey, tValues) in enumerate(testDictionary.items()):
 
     # Loop through each training set's rows
     for tr, (trKey, trValues) in enumerate(trainingDictionary.items()):
-        
+        '''
+        MARK: - Euclidean Distance
+        let a = (x1 - y1)^2 + (x2 - y2)^2 + ... + (xn - yn)^2
+        let dxy = sqrt(a)
+        '''
         # Loop through each training/test set's columns and calculate the distance per each training set's row
         for i, value in enumerate(trValues):
-            '''
-            MARK: - Euclidean Distance
-            let a = (x1 - y1)^2 + (x2 - y2)^2 + ... + (xn - yn)^2
-            let dxy = sqrt(a)
-            '''
+            # Get the summation
             distance += (tValues[i] - value) * (tValues[i] - value)
-            distance = math.sqrt(distance)
 
+    
+        
+        # Get the square root after getting the summation
+        distance = math.sqrt(distance)
         # Store the distance in the dictionary along with its classification
         distanceDictionary[distance] = trValues[-1]
-        
         # Log this for visual
         print(f'Distance: {distance}')
-        
         # Reset the distance value to recalculate the distance
         distance = 0
 
@@ -137,7 +138,7 @@ classifications = []
 # Loop through the kValues and append the accuracy for each 'K'
 for k in kValues:
     # Loop through the sorted dictionary values (least to greatest) and append their accuracy at each value of 'k'
-    for n, (knn, classification) in enumerate(sortedDictionary.items()):
+    for n, (distance, classification) in enumerate(sortedDictionary.items()):
         # Append the classification
         classifications.append(classification)
         
