@@ -20,7 +20,7 @@
 -------------------------------------------------------------------------------------------------------------------------
 ```
 
-'''
+```
          n
 H(x) = - ∑ (p(x<sub>i</sub>)log<sub>2</sub>(p(x<sub>i</sub>)))
        i = 1
@@ -51,8 +51,8 @@ MARK: - Pruning
                                       |            |
                                     2L, 0H       0L, 2H      
 * Keep: 1; Prune: 2
-
-
+```
+```
                                         [Education Level]
                                         /               \
                                 [Experience]            [Career]
@@ -68,7 +68,8 @@ MARK: - Pruning
 
 * Keep: 1; Prune: 3
 * Keep: 1; Prune: 1
-
+```
+```
 MARK: - Post Pruning
                                             [Education Level]
                                             /               \
@@ -79,4 +80,4 @@ MARK: - Post Pruning
                                             /       \    
                                         [Low]       [High]
                                     (Management)    (Service)
-'''
+```
