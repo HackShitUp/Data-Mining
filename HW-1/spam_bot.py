@@ -138,7 +138,7 @@ for n, (knn, classification) in enumerate(sortedDictionary.items()):
     # Append the classification to the list
     classifications.append(classification)
     
-    # If we found the kth nearest neighbor, log its accuracy                   }
+    # If we found the kth nearest neighbor, log its accuracy
     if (n + 1) in kValues:
         # Get the accuracy of the input
         totalCount = len(classifications)

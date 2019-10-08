@@ -28,6 +28,10 @@ Abstract: This method calculates the distance between each data set and stores t
 ```
 
 
+### 1D. What can you conclude by comparing the KNN performance in (a) and (b)?
+One can conclude that normalizing one's datasets optimizes their algorithm for effiency in terms of benchmarking and dimensionality reduction. When datasets scale, kNN takes longer to execute. Hypothetically, if one were given 2 datasets, A and B, both with 2 features, when plotted on an _x and y_ graph, the algorithm would execute it fairly quickly and plot its points on a 2D plane. With n features (n > 2), this gets complicated. Normalization helps with simplfying this process.
+
+
 ### 2. Table 1 below contains a small training set. Each line includes an individual’s education, occupation choice, years of experience, and an indication of salary. Your task is to create a complete decision tree including the number of low’s & high’s , entropy at each step and the information gain for each feature examined at each node in the tree.
 
 ```

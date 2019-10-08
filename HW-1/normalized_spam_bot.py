@@ -60,15 +60,23 @@ for path in paths:
             # Get the ID
             id = row[0]
             # Get the values from 1 - n (values excluding the ID)
-#            values = list(map(float, row[1:columnCount]))
+            values = list(map(float, row[1:columnCount]))
             
+            normalizedValues = []
             
-
+            # Loop through the columns and calculate the new column value
+            for i in range(0, columnCount - 1):
+                # Normalize the features
+                value = (values[i] - values[i].mean())/values[i].std(ddof=0)
+                # Update the array
+                normalizedValues.append(value)
+            
             # Update the dictionary to reflect the values for each row in this data set
-            (trainingDictionary if path == pathToTrainingSet else testDictionary)[id] = values
+            (trainingDictionary if path == pathToTrainingSet else testDictionary)[id] = normalizedValues
         
         # Update the iterator
         i += 1
+        
             
 
 
