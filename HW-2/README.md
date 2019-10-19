@@ -104,15 +104,6 @@ P(x = 'more than 10' | y = 'high') = 2/4 + 1/3
 #### x = {"high school", "service", "less than 3"}   --> *low*
 ```
 P(y = 'low'|x) α P(x = 'high school' | y = 'low')*
-P(x = 'service' | y = 'low')*P(x = 'less than 3' | y = 'low')*
-P(y = 'low')
-= 5/8 * 5/8 * 1/3 * 3/5
-= 0.781
-```
-
-#### x = {"high school", "service", "less than 3"}   --> *low*
-```
-P(y = 'low'|x) α P(x = 'high school' | y = 'low')*
 P(x = 'service' | y = 'low') * P(x = 'less than 3' | y = 'low')*
 P(y = 'low')
 = 5/8 * 5/8 * 1/3 * 3/5
