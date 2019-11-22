@@ -6,7 +6,6 @@ Yijun Zhao
 11/22/19
 ```
 
-
 1.
 (a) Report the SSE values of ach clustering run for each _k_ value.
 ```
@@ -83,3 +82,64 @@ k = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 • Seed = 4: 464.009240158985
 • Seed = 5: 430.1227625164528
 ```
+
+(b) For each _k_ = 1, 2, ..., 10 compute the mean SSE, which we denote **μ<sub>k</sub>** and the sample standard deviation of SSE, which we denote **σ<sub>k</sub>** over all 5 clustering runs for that value of <sub>k</sub>. Produce a table containing the 4 columns: **k, μ<sub>k</sub>, μ<sub>k</sub>-2σ<sub>k</sub> and μ<sub>k</sub> + 2σ<sub>k</sub>** for each of the values of _k_ = 1, 2, ..., 10.
+
+_Notes:_
+</br>
+• μ<sub>k</sub> = Mean
+</br>
+• σ<sub>k</sub> = Sample Standard Deviation
+1. Get mean
+2. Per each number: subtract the mean and square the result
+3. Get mean of those squared differences
+4. Take square root
+-------------------------------------------------------------------------------------------------------------------------
+|    k   |   μ<sub>k</sub>   |  σ<sub>k</sub>     |   μ<sub>k</sub>-2σ<sub>k</sub>    |   μ<sub>k</sub> + 2σ<sub>k</sub>|
+|:------:|:-----------------:|:------------------:|:---------------------------------:|:-------------------------------:|
+|   1    |  3804.7443834874  |7.1901869436451E-13 |         3804.7443834874           |          3804.7443834874        |
+|   2    |  2678.6223720799  |   1.4775891367531  |         2675.6671938064           |          2681.5775503534        |
+|   3    |  2094.8147635781  |   39.999177253144  |         2014.8164090718           |          2174.8131180844        |
+|   4    |  1726.5505323841  |   193.84046230267  |         8245.0717373151           |          9020.4335865257        |
+|   5    |  1455.6446027449  |  249.5934226265    |         6779.0361684714           |          7777.4098589774        |
+|   6    |  1102.464156506   |  148.862398396     |         5214.5959857379           |          5810.0455793219        |
+|   7    |  881.0016233995   |   146.3141545705   |         588.3733142585            |          1173.6299325405        |
+|   8    |  605.9996052706   |   292.03410568512  |         21.9313939004             |          1190.0678166408        |
+|   9    |  588.2139310321   |   289.50466685734  |            9.2045973174           |          1167.2232647468        |
+|   10   |  502.622249075    |   139.51679609811  |         223.5886568788            |          781.6558412712         |
+-------------------------------------------------------------------------------------------------------------------------
+
+2. (20 points) Consider the following dataset:
+```
+{ 0, 4, 5, 20, 25, 39, 43, 44 }
+```
+(a) Build a dendrogram for this dataset using the single-link, bottom-up approach. Show your work.
+```         
+            |
+    -----------------
+    |               |
+---------   -----------------       
+|   |   |   |   |   |   |   |
+0   4   5   20  25  39  43  44  
+```
+(b) Suppose we want the two top level clusters. List the data points in each cluster.
+
+
+
+3. (20 points) Given two clusters
+```
+C1 = {(1,1),(2,2),(3,3)} 
+C2 = {(5,2),(6,2),(7,2),(8,2),(9,2)}
+```
+compute the values in (a) - (f). Use the definition for scattering criteria presented in
+class. Note that tr in the scattering criterion is referring to the trace of the matrix. 1
+</br>
+(a) The mean vectors m<sub>1</sub> and m<sub>2</sub>
+</br>
+(b) The total mean vector m
+</br>
+(c) The scatter matrices S<sub>1</sub> and S<sub>2</sub>
+</br>
+(d) The within-cluster scatter matrix S<sub>W</sub>
+</br>
+(e) The between-cluster scatter matrix SB (f) The scatter criterion tr(S<sub>B</sub>)/tr(S<sub>W</sub>)
