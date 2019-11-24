@@ -114,32 +114,166 @@ _Notes:_
 { 0, 4, 5, 20, 25, 39, 43, 44 }
 ```
 (a) Build a dendrogram for this dataset using the single-link, bottom-up approach. Show your work.
-```         
-            |
-    -----------------
-    |               |
----------   -----------------       
-|   |   |   |   |   |   |   |
-0   4   5   20  25  39  43  44  
+```  
+-----       -----       -----
+|   |       |   |       |   |
+4   5       43  45      20  25
+
+--------|          |--------------|
+|    -----       -----       |   ----
+|    |   |       |   |       |   |  |
+0    4   5       20  25      39  43 45
+
+                |
+    -------------------------
+    |                       |
+--------|          |--------------|
+|    -----       -----       |   ----
+|    |   |       |   |       |   |  |
+0    4   5       20  25      39  43 45
 ```
 (b) Suppose we want the two top level clusters. List the data points in each cluster.
-
-
+```
+{0, 4, 5}
+{20, 25, 39, 43, 45}
+```
 
 3. (20 points) Given two clusters
 ```
 C1 = {(1,1),(2,2),(3,3)} 
 C2 = {(5,2),(6,2),(7,2),(8,2),(9,2)}
 ```
-compute the values in (a) - (f). Use the definition for scattering criteria presented in
-class. Note that tr in the scattering criterion is referring to the trace of the matrix. 1
+compute the values in (a) - (f). Use the definition for scattering criteria presented in class. Note that _tr_ in the scattering criterion is referring to the trace of the matrix. 1
 </br>
 (a) The mean vectors m<sub>1</sub> and m<sub>2</sub>
 </br>
-(b) The total mean vector m
+* x<sub>1</sub> = [1 + 2 + 3]/3 = 2
 </br>
+* y<sub>1</sub> = [1 + 2 + 3]/3 = 2
+</br>
+**m<sub>1</sub> = (2, 2)** 
+</br></br>
+* x<sub>2</sub> = [5 + 6 + 7 + 8 + 9]/5 = 7
+</br>
+* y<sub>2</sub> = [2 + 2 + 2 + 2 + 2]/5 = 2
+</br>
+**m<sub>2</sub> = (7, 2)**
+
+(b) The total mean vector _m_
+```
+_m_ = (4.38, 2)
+```
 (c) The scatter matrices S<sub>1</sub> and S<sub>2</sub>
 </br>
+S<sub>i</sub>=∑(𝐱 − μ<sub>i</sub>)(𝐱 − μ<sub>i</sub>)<sup>T</sup>
+</br>
+```
+[1 2]       [1 2]T      [-1]
+[ - ]   *   [ - ]   =   [  ]   * (-1, -1)   =   [1  1]
+[1 2]       [1 2]       [-1]                    [1  1]
+
+[2 2]       [2 2]T      [0]
+[ - ]   *   [ - ]   =   [ ]   * (0, 0)     =    [0  0]
+[2 2]       [2 2]       [0]                     [0  0]
+
+[3 2]       [3 2]T      [1]
+[ - ]   *   [ - ]   =   [ ]   * (1, 1)     =    [1  1]
+[3 2]       [3 2]       [1]                     [1  1]
+
+[1 1]   +   [0 0]   +   [1 1]              =    [2  2]
+[1 1]       [0 0]       [1 1]                   [2  2]
+-------------------------------------------------------
+[5 7]       [5 7]       [-2]
+[ - ]   *   [ - ]   =   [  ]   * (-2, 0)   =    [4  0]
+[2 2]       [2 2]       [ 0]                    [0  0]
+
+[6 7]       [6 7]       [-1]
+[ - ]   *   [ - ]   =   [  ]   * (-1, 0)   =    [1  0]
+[2 2]       [2 2]       [ 0]                    [0  0]
+
+[7 7]       [7 7]       [-2]
+[ - ]   *   [ - ]   =   [  ]   * (-2, 0)   =    [4  0]
+[2 2]       [2 2]       [ 0]                    [0  0]
+
+[8 7]       [8 7]       [1]
+[ - ]   *   [ - ]   =   [ ]   * (1, 0)    =    [1  0]
+[2 2]       [2 2]       [0]                    [0  0]
+
+[9 7]       [9 7]       [2]
+[ - ]   *   [ - ]   =   [ ]   * (2, 0)    =    [4  0]
+[2 2]       [2 2]       [0]                    [0  0]
+
+[4 0]   +   [1 0]   +   [0 0]   +   [1 0]   +   [4 0]   =   [10 0]
+[0 0]       [0 0]       [0 0]       [0 0]       [0 0]       [0  0]
+```
 (d) The within-cluster scatter matrix S<sub>W</sub>
 </br>
-(e) The between-cluster scatter matrix SB (f) The scatter criterion tr(S<sub>B</sub>)/tr(S<sub>W</sub>)
+S<sub>W</sub> =
+``` 
+[2  2] * [10 0]     =      [12  2]
+[2  2]   [0  0]            [2   2]
+```
+(e) The between-cluster scatter matrix S<sub>B</sub>
+</br>
+``` 
+3   *   [2   -   4.38]    *   [2  -   4.38]T     =   3 * [-2.38] * (-2.38, 0)    =   [16.9   0]
+        [2         2 ]        [2  -      2]              [  0  ]                     [0      0]
+5   *   [7   -   4.38]    *   [7  -   4.38]T     =   5 * [-2.62] * (-2.62, 0)    =   [34.3   0]
+        [2         2 ]        [2  -      2]              [  0  ]                     [0      0]
+```
+S<sub>B</sub> = 
+```
+[51.2   0]
+[0      0]
+```
+(f) The scatter criterion tr(S<sub>B</sub>)/tr(S<sub>W</sub>)
+</br>
+tr(S<sub>B</sub>)/tr(S<sub>W</sub>) = 14/51.2
+
+4. (20 points) A Naive Bayes classifier gives the predicted probability of each data point belonging to the positive class, sorted in a descending order:
+-------------------------------------------------------------------------------------
+|   Instance #  |   True Class Label    |   Predicted Probability of Positive Class |
+|:-------------:|:---------------------:|:-----------------------------------------:|
+|       1       |           P           |                    0.95                   |
+|       2       |           N           |                    0.85                   |
+|       3       |           P           |                    0.78                   |
+|       4       |           P           |                    0.66                   |
+|       5       |           N           |                    0.60                   |
+|       6       |           P           |                    0.55                   |
+|       7       |           N           |                    0.43                   |
+|       8       |           N           |                    0.42                   |
+|       9       |           N           |                    0.41                   |
+|       10      |           P           |                    0.4                    |
+-------------------------------------------------------------------------------------
+Suppose we use 0.5 as the threshold to assign the predicted class label to each data point, i.e., if the predicted probability ≥ 0.5, the data point is assigned to positive class; otherwise, it is assigned to negative class. Calculate the Confusion Matrix, Accuracy, Precision, Recall, F1 Score and Specificity of the classifier.
+
+• **Confusion Matrix**
+```
+-------------------------
+|       |   P   |   N   |
+|-----------------------|
+|   P   |   4   |   1   |
+|-----------------------|
+|   N   |   2   |   3   |
+-------------------------
+```
+• **Accuracy**
+```
+[TP + TN]/[P + N] = [4 + 3]/[5 + 5] = 7/10
+```
+• **Precision**
+```
+[TP]/[TP + FP] = 4/[4+1] = 4/5
+```
+• **Recall**
+```
+[TP]/[TP + FN] = 4/[4+2] = 4/6 = 2/3
+```
+• **F1 Score**
+```
+[2TP]/[2TP + FP + FN] = [2*4]/[(2*4) + 1 + 2] = 8/11
+```
+• **Specifity**
+```
+[TP]/[FP + TN] = 3/[1+3] = 3/4
+```
