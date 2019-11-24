@@ -147,15 +147,15 @@ compute the values in (a) - (f). Use the definition for scattering criteria pres
 </br>
 (a) The mean vectors m<sub>1</sub> and m<sub>2</sub>
 </br>
-* x<sub>1</sub> = [1 + 2 + 3]/3 = 2
+• x<sub>1</sub> = [1 + 2 + 3]/3 = 2
 </br>
-* y<sub>1</sub> = [1 + 2 + 3]/3 = 2
+• y<sub>1</sub> = [1 + 2 + 3]/3 = 2
 </br>
-**m<sub>1</sub> = (2, 2)** 
+**m<sub>1</sub> = (2, 2)**
 </br></br>
-* x<sub>2</sub> = [5 + 6 + 7 + 8 + 9]/5 = 7
+• x<sub>2</sub> = [5 + 6 + 7 + 8 + 9]/5 = 7
 </br>
-* y<sub>2</sub> = [2 + 2 + 2 + 2 + 2]/5 = 2
+• y<sub>2</sub> = [2 + 2 + 2 + 2 + 2]/5 = 2
 </br>
 **m<sub>2</sub> = (7, 2)**
 
