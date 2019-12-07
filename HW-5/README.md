@@ -1,7 +1,9 @@
+```
 Josh Choi
 Yijun Zhao
 Data Mining
 12/6/19
+```
 
 # HW 5
 1. (40 points) Consider a dataset for frequent set mining as in the following table where we have 6 binary features and each row represents a transaction:
@@ -14,13 +16,13 @@ Data Mining
 100101 
 001111 
 101010 
-100100 
+100100
 011001
 ```
-(a) Illustrate the first three levels of the Apriori algorithm (set sizes 1, 2 and 3) for support threshold of 3 transactions, by identifying candidate sets and calculating their support. What are the maximal frequent sets discovered in the first 3 levels?
+(a) Illustrate the first three levels of the Apriori algorithm (set sizes 1, 2 and 3) for support threshold of 3 transactions, by identifying candidate sets and calculating their support. What are the maximal frequent sets discovered in the first 3 levels?</br>
 C<sub>1</sub>
 |       100000      |       5        |
-|-------------------|----------------|
+| ----------------- | -------------- |
 |       010000      |       3        |
 |       001000      |       5        |
 |       000100      |       5        |
@@ -29,7 +31,7 @@ C<sub>1</sub>
 
 L<sub>1</sub>
 |       100000      |       5        |
-|-------------------|----------------|
+| ----------------- | -------------- |
 |       010000      |       3        |
 |       001000      |       6        |
 |       000100      |       5        |
@@ -40,7 +42,7 @@ L<sub>1</sub>
 
 C<sub>2</sub>
 |       110000      |        1       |
-|-------------------|----------------|
+| ----------------- | -------------- |
 |       101000      |        2       |
 |       100100      |        2       |
 |       1000010     |        2       |
@@ -58,7 +60,7 @@ C<sub>2</sub>
 
 L<sub>2</sub>
 |       011000      |       3        |
-|-------------------|----------------|
+| ----------------- | -------------- |
 |       001010      |       3        |
 |       001001      |       3        |
 |       000101      |       3        |
@@ -67,14 +69,14 @@ L<sub>2</sub>
 
 C<sub>3</sub>
 |       011010      |       0        |
-|-------------------|----------------|
+| ----------------- | -------------- |
 |       011001      |       2        |
 |       001011      |       1        |
 |       001101      |       2        |
 
 L<sub>3</sub>
 |       011001      |       2        |
-|-------------------|----------------|
+| ----------------- | -------------- |
 |       001101      |       2        |
 
 
