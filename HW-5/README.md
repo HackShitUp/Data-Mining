@@ -19,8 +19,9 @@ Data Mining
 100100
 011001
 ```
-(a) Illustrate the first three levels of the Apriori algorithm (set sizes 1, 2 and 3) for support threshold of 3 transactions, by identifying candidate sets and calculating their support. What are the maximal frequent sets discovered in the first 3 levels?</br>
-C<sub>1</sub>
+(a) Illustrate the first three levels of the Apriori algorithm (set sizes 1, 2 and 3) for support threshold of 3 transactions, by identifying candidate sets and calculating their support. What are the maximal frequent sets discovered in the first 3 levels?
+```
+C1
 |       100000      |       5        |
 |:-----------------:|:--------------:|
 |       010000      |       3        |
@@ -29,7 +30,7 @@ C<sub>1</sub>
 |       000000      |       4        |
 |       000001      |       4        |
 
-L<sub>1</sub>
+L1
 |       100000      |       5        |
 |:-----------------:|:--------------:|
 |       010000      |       3        |
@@ -40,7 +41,7 @@ L<sub>1</sub>
 
 
 
-C<sub>2</sub>
+C2
 |       110000      |        1       |
 |:-----------------:|:--------------:|
 |       101000      |        2       |
@@ -58,7 +59,7 @@ C<sub>2</sub>
 |       000101      |        3       |
 |       000011      |        1       |
 
-L<sub>2</sub>
+L2
 |       011000      |       3        |
 |:-----------------:|:--------------:|
 |       001010      |       3        |
@@ -67,17 +68,18 @@ L<sub>2</sub>
 
 
 
-C<sub>3</sub>
+C3
 |       011010      |       0        |
 |:-----------------:|:--------------:|
 |       011001      |       2        |
 |       001011      |       1        |
 |       001101      |       2        |
 
-L<sub>3</sub>
+L3
 |       011001      |       2        |
 |:-----------------:|:--------------:|
 |       001101      |       2        |
+```
 
 
 (b) Pick one of the maximal sets and check if any of its subsets are association rules with frequency at least 0.3 and confidence at least 0.6. Pleas explain your answer and show your work.
